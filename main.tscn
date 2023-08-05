@@ -1,0 +1,225 @@
+[gd_scene load_steps=24 format=3 uid="uid://dq2cnca5oumcl"]
+
+[ext_resource type="PackedScene" uid="uid://ccq121a4bncjp" path="res://player.tscn" id="1_v07eb"]
+[ext_resource type="PackedScene" uid="uid://ohaw43wqob60" path="res://inimigo2d.tscn" id="2_u4wqo"]
+[ext_resource type="Script" path="res://Porta.gd" id="3_ynqar"]
+[ext_resource type="AudioStream" uid="uid://dox2dhov3tigw" path="res://portaabrir.mp3" id="4_rcs6o"]
+[ext_resource type="AudioStream" uid="uid://dhg8857hjy5b7" path="res://portafechar.mp3" id="5_2quh3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3pxbj"]
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dn3c1"]
+size = Vector2(20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0wf7b"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cdt8r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2uh2k"]
+albedo_color = Color(0.360784, 0.694118, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8vk57"]
+size = Vector2(46, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2eekh"]
+size = Vector3(1, 2, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oxr1t"]
+size = Vector3(1, 2, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6sm1p"]
+albedo_color = Color(0.662745, 0.419608, 0.227451, 1)
+
+[sub_resource type="Animation" id="Animation_22jfo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bkj53"]
+resource_name = "porta_abrir"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(0.183011, 0.183011),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5708, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5cw40"]
+resource_name = "porta_fechar"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(0.183011, 0.183011),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lpong"]
+_data = {
+"RESET": SubResource("Animation_22jfo"),
+"porta_abrir": SubResource("Animation_bkj53"),
+"porta_fechar": SubResource("Animation_5cw40")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_0jg1k"]
+size = Vector3(0.5, 0.01, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4fxd7"]
+albedo_color = Color(0.631373, 0.411765, 0.25098, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ng3m8"]
+size = Vector3(0.5, 0.01, 0.5)
+
+[sub_resource type="PrismMesh" id="PrismMesh_6vm7c"]
+size = Vector3(1, 1, 0.475)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ut8y"]
+albedo_color = Color(0.760784, 0.0392157, 0.0941176, 1)
+
+[node name="Main" type="Node"]
+
+[node name="Piso" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Piso"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0494982, 0)
+shape = SubResource("BoxShape3D_3pxbj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Piso"]
+mesh = SubResource("PlaneMesh_dn3c1")
+
+[node name="Player" parent="." instance=ExtResource("1_v07eb")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707871, 0.706342, 0, -0.706342, 0.707871, 0.00835419, 15.5945, 17.6673)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.51593, 1.12593, 3.55806)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." groups=["bloco"]]
+transform = Transform3D(0.700498, 0.713654, 0, -0.603471, 0.592346, -0.533806, -0.380953, 0.37393, 0.845607, 0, 2.44808, -4.37012)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_0wf7b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_cdt8r")
+surface_material_override/0 = SubResource("StandardMaterial3D_2uh2k")
+
+[node name="Inimigo2D" parent="." instance=ExtResource("2_u4wqo")]
+position = Vector2(595, 47)
+
+[node name="parede2D" type="StaticBody2D" parent="."]
+position = Vector2(26, 51)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="parede2D"]
+shape = SubResource("RectangleShape2D_8vk57")
+
+[node name="parede2D2" type="StaticBody2D" parent="."]
+position = Vector2(1130, 51)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="parede2D2"]
+shape = SubResource("RectangleShape2D_8vk57")
+
+[node name="Porta" type="Node3D" parent="." groups=["porta"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2, 1, 6)
+script = ExtResource("3_ynqar")
+metadata/_edit_group_ = true
+
+[node name="Pivot" type="StaticBody3D" parent="Porta"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Porta/Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+shape = SubResource("BoxShape3D_2eekh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Porta/Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+mesh = SubResource("BoxMesh_oxr1t")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_6sm1p")
+
+[node name="Area3D" type="Area3D" parent="Porta"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Porta/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+shape = SubResource("BoxShape3D_2eekh")
+
+[node name="portasom" type="AudioStreamPlayer3D" parent="Porta"]
+stream = ExtResource("4_rcs6o")
+
+[node name="portasom2" type="AudioStreamPlayer3D" parent="Porta"]
+stream = ExtResource("5_2quh3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Porta"]
+libraries = {
+"": SubResource("AnimationLibrary_lpong")
+}
+
+[node name="PlacaPressao" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1976, 0.0555615, 4.9878)
+collision_layer = 0
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlacaPressao"]
+mesh = SubResource("BoxMesh_0jg1k")
+surface_material_override/0 = SubResource("StandardMaterial3D_4fxd7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlacaPressao"]
+shape = SubResource("BoxShape3D_ng3m8")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+modulate = Color(0.785156, 0.503906, 0.367188, 1)
+offset_left = 86.0
+offset_top = 138.0
+offset_right = 325.0
+offset_bottom = 175.0
+
+[node name="PoopLabel" type="Label" parent="."]
+offset_left = 39.0
+offset_top = 139.0
+offset_right = 85.0
+offset_bottom = 203.0
+theme_override_font_sizes/font_size = 46
+text = "💩"
+
+[node name="Seta" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.238, 1.548, -2.27)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Seta"]
+transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0, 0)
+mesh = SubResource("PrismMesh_6vm7c")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_0ut8y")
+
+[node name="RayCastGranada" type="RayCast3D" parent="Seta"]
+target_position = Vector3(0, 0, -3.11)
+
+[connection signal="body_entered" from="PlacaPressao" to="Porta" method="_on_placa_pressao_body_entered"]
