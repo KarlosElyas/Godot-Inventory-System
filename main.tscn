@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://ccq121a4bncjp" path="res://player.tscn" id="1_v07eb"]
 [ext_resource type="PackedScene" uid="uid://ohaw43wqob60" path="res://inimigo2d.tscn" id="2_u4wqo"]
 [ext_resource type="Script" path="res://Porta.gd" id="3_ynqar"]
-[ext_resource type="AudioStream" uid="uid://dox2dhov3tigw" path="res://portaabrir.mp3" id="4_rcs6o"]
-[ext_resource type="AudioStream" uid="uid://dhg8857hjy5b7" path="res://portafechar.mp3" id="5_2quh3"]
+[ext_resource type="AudioStream" uid="uid://dox2dhov3tigw" path="res://Audio/portaabrir.mp3" id="4_ry64r"]
+[ext_resource type="AudioStream" uid="uid://dhg8857hjy5b7" path="res://Audio/portafechar.mp3" id="5_y0uxo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3pxbj"]
 size = Vector3(20, 0.1, 20)
@@ -172,10 +172,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
 shape = SubResource("BoxShape3D_2eekh")
 
 [node name="portasom" type="AudioStreamPlayer3D" parent="Porta"]
-stream = ExtResource("4_rcs6o")
+stream = ExtResource("4_ry64r")
 
 [node name="portasom2" type="AudioStreamPlayer3D" parent="Porta"]
-stream = ExtResource("5_2quh3")
+stream = ExtResource("5_y0uxo")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Porta"]
 libraries = {
