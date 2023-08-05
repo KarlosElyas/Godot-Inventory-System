@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://dq2cnca5oumcl"]
+[gd_scene load_steps=25 format=3 uid="uid://dq2cnca5oumcl"]
 
 [ext_resource type="PackedScene" uid="uid://ccq121a4bncjp" path="res://player.tscn" id="1_v07eb"]
 [ext_resource type="PackedScene" uid="uid://ohaw43wqob60" path="res://inimigo2d.tscn" id="2_u4wqo"]
 [ext_resource type="Script" path="res://Porta.gd" id="3_ynqar"]
 [ext_resource type="AudioStream" uid="uid://dox2dhov3tigw" path="res://Audio/portaabrir.mp3" id="4_ry64r"]
 [ext_resource type="AudioStream" uid="uid://dhg8857hjy5b7" path="res://Audio/portafechar.mp3" id="5_y0uxo"]
+[ext_resource type="PackedScene" uid="uid://crl6pbm2r86dj" path="res://inventory/inventory.tscn" id="6_b6ktg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3pxbj"]
 size = Vector3(20, 0.1, 20)
@@ -221,5 +222,22 @@ surface_material_override/0 = SubResource("StandardMaterial3D_0ut8y")
 
 [node name="RayCastGranada" type="RayCast3D" parent="Seta"]
 target_position = Vector3(0, 0, -3.11)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("6_b6ktg")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
 
 [connection signal="body_entered" from="PlacaPressao" to="Porta" method="_on_placa_pressao_body_entered"]
