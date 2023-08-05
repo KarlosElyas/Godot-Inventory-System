@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dq2cnca5oumcl"]
+[gd_scene load_steps=29 format=3 uid="uid://dq2cnca5oumcl"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_84kpr"]
 [ext_resource type="PackedScene" uid="uid://ccq121a4bncjp" path="res://player.tscn" id="1_v07eb"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://dhg8857hjy5b7" path="res://Audio/portafechar.mp3" id="5_y0uxo"]
 [ext_resource type="PackedScene" uid="uid://crl6pbm2r86dj" path="res://inventory/inventory.tscn" id="6_b6ktg"]
 [ext_resource type="Script" path="res://inventory/inventory_interface.gd" id="8_egrvv"]
+[ext_resource type="PackedScene" uid="uid://6ychcj1iywf" path="res://inventory/slot.tscn" id="10_0v4a7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3pxbj"]
 size = Vector3(20, 0.1, 20)
@@ -246,5 +247,13 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 50.0
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("10_0v4a7")]
+visible = false
+modulate = Color(1, 1, 1, 0.509804)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
 
 [connection signal="body_entered" from="PlacaPressao" to="Porta" method="_on_placa_pressao_body_entered"]
