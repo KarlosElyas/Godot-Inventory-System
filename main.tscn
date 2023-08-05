@@ -1,11 +1,14 @@
-[gd_scene load_steps=25 format=3 uid="uid://dq2cnca5oumcl"]
+[gd_scene load_steps=28 format=3 uid="uid://dq2cnca5oumcl"]
 
+[ext_resource type="Script" path="res://main.gd" id="1_84kpr"]
 [ext_resource type="PackedScene" uid="uid://ccq121a4bncjp" path="res://player.tscn" id="1_v07eb"]
 [ext_resource type="PackedScene" uid="uid://ohaw43wqob60" path="res://inimigo2d.tscn" id="2_u4wqo"]
+[ext_resource type="Resource" uid="uid://j34gvvlcfj1r" path="res://test_inv.tres" id="3_kwcfg"]
 [ext_resource type="Script" path="res://Porta.gd" id="3_ynqar"]
 [ext_resource type="AudioStream" uid="uid://dox2dhov3tigw" path="res://Audio/portaabrir.mp3" id="4_ry64r"]
 [ext_resource type="AudioStream" uid="uid://dhg8857hjy5b7" path="res://Audio/portafechar.mp3" id="5_y0uxo"]
 [ext_resource type="PackedScene" uid="uid://crl6pbm2r86dj" path="res://inventory/inventory.tscn" id="6_b6ktg"]
+[ext_resource type="Script" path="res://inventory/inventory_interface.gd" id="8_egrvv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3pxbj"]
 size = Vector3(20, 0.1, 20)
@@ -102,6 +105,7 @@ size = Vector3(1, 1, 0.475)
 albedo_color = Color(0.760784, 0.0392157, 0.0941176, 1)
 
 [node name="Main" type="Node"]
+script = ExtResource("1_84kpr")
 
 [node name="Piso" type="StaticBody3D" parent="."]
 
@@ -113,6 +117,7 @@ shape = SubResource("BoxShape3D_3pxbj")
 mesh = SubResource("PlaneMesh_dn3c1")
 
 [node name="Player" parent="." instance=ExtResource("1_v07eb")]
+inventory_data = ExtResource("3_kwcfg")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707871, 0.706342, 0, -0.706342, 0.707871, 0.00835419, 15.5945, 17.6673)
@@ -226,12 +231,14 @@ target_position = Vector3(0, 0, -3.11)
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("8_egrvv")
 
 [node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("6_b6ktg")]
 layout_mode = 0

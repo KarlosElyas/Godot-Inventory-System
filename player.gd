@@ -1,6 +1,6 @@
 extends CharacterBody3D
 #SHIFT Alt O - Abrir rapidamente algo
-#@export var inventory_data: InventoryData
+@export var inventory_data: InventoryData #array de slots
 @export var velocidade = 5
 @export var pulo = 20
 @export var sensibilidade = 0.002
@@ -9,7 +9,7 @@ const gravidade = 75
 @onready var raycast = $"Cabeça/RayCast3D"
 var target_velocity = Vector3.ZERO
 var need = Necessidade.new(100.0, 0.1)
-#signal toggle_inventory()
+signal toggle_inventory()
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -33,7 +33,8 @@ func _unhandled_input(event):
 	#if event.is_action_just_pressed("inventory"):
 	#event.is_action_just_pressed NÃO FUNCIONA
 	if event.is_action_pressed("inventory"):
-		pass #toggle_inventory.emit()
+		toggle_inventory.emit()
+
 func _process(_delta):
 	$"../Seta".look_at($"Cabeça".get_global_transform().origin)#, transform.basis.y)
 
