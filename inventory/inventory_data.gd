@@ -19,13 +19,16 @@ func grab_slot_data(index: int) -> SlotData:
 
 func drop_slot_data(grabbed_slot_data: SlotData, index: int) -> SlotData:
 	var slot_data = slot_datas[index] # index do que foi clicado
-		
-	slot_datas[index] = grabbed_slot_data
-	inventory_updated.emit(self)
-	if slot_data: # se ja tive item na posição então retorna ele
-		return slot_data
+	
+	var return_slot_data: SlotData
+	if slot_data and slot_data.can_fully_merge_with(grabbed_slot_data):
+		slot_data.fully_merge_with(grabbed_slot_data)
 	else:
-		return null
+		slot_datas[index] = grabbed_slot_data # passa o slot do grabbed
+		return_slot_data = slot_data # caso seja null setara null
+	
+	inventory_updated.emit(self)
+	return return_slot_data
 
 # a instancia do slot tem seu Sinal associado com esta função
 func on_slot_clicked(index: int, button: int) -> void:

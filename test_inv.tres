@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=7 format=3 uid="uid://j34gvvlcfj1r"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=8 format=3 uid="uid://j34gvvlcfj1r"]
 
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="1_wfjbl"]
 [ext_resource type="Resource" uid="uid://bgn2s28rd76g4" path="res://item/items/apple.tres" id="2_5d6x1"]
@@ -10,6 +10,11 @@ script = ExtResource("3_axbbo")
 item_data = ExtResource("2_5d6x1")
 quantity = 10
 
+[sub_resource type="Resource" id="Resource_51ssr"]
+script = ExtResource("3_axbbo")
+item_data = ExtResource("2_5d6x1")
+quantity = 10
+
 [sub_resource type="Resource" id="Resource_75k4d"]
 script = ExtResource("3_axbbo")
 item_data = ExtResource("4_rjg7s")
@@ -17,4 +22,4 @@ quantity = 1
 
 [resource]
 script = ExtResource("1_wfjbl")
-slot_datas = Array[ExtResource("3_axbbo")]([null, null, SubResource("Resource_n4kps"), null, null, null, SubResource("Resource_75k4d"), null, null, null, null, null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("3_axbbo")]([null, null, SubResource("Resource_n4kps"), SubResource("Resource_51ssr"), null, null, SubResource("Resource_75k4d"), null, null, null, null, null, null, null, null, null, null, null])
