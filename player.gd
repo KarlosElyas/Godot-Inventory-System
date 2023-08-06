@@ -88,4 +88,6 @@ func abrirPorta():
 
 func interact() -> void:
 	if raycast.is_colliding():
-		print(raycast.get_collider())
+		var target = raycast.get_collider()
+		if target.is_in_group("external_inventory"):
+			raycast.get_collider().player_interact()

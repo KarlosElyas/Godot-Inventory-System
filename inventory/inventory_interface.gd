@@ -2,8 +2,11 @@ extends Control
 # SCRIPT do nó InventoryInterface em main
 
 var grabbed_slot_data: SlotData
+var external_inventory_owner
+
 @onready var player_inventory = $PlayerInventory
 @onready var grabbed_slot = $GrabbedSlot
+@onready var external_inventory = $ExternalInventory
 
 func _physics_process(delta): # se o grabbed estiver visivel
 	if grabbed_slot.visible:# então ele seguira a posição do mouse
@@ -13,8 +16,28 @@ func _physics_process(delta): # se o grabbed estiver visivel
 func set_player_invetory_data(inventory_data: InventoryData) -> void:
 	# conecta o sinal de inventory data que vem como argumento
 	inventory_data.inventory_interact.connect(on_inventory_interact)
-	
+	#popula a grid do inventario Player
 	player_inventory.set_inventory_data(inventory_data)
+
+func set_external_inventory(_external_inventory_owner) -> void:
+	external_inventory_owner = _external_inventory_owner
+	#obtém o data de inventario do baú
+	var inventory_data = external_inventory_owner.inventory_data
+	
+	inventory_data.inventory_interact.connect(on_inventory_interact)
+	external_inventory.set_inventory_data(inventory_data)
+	external_inventory.show()
+
+func clear_external_inventory() -> void:
+	if external_inventory_owner:
+		var inventory_data = external_inventory_owner.inventory_data
+		
+		inventory_data.inventory_interact.disconnect(on_inventory_interact)
+		# disconectar o UPDATE do data com o populate da UI
+		external_inventory.clear_inventory_data(inventory_data)
+		
+		external_inventory.hide()
+		external_inventory_owner = null
 
 # função chamada pelo sinal ao clicar no Slot.tscn
 func on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
