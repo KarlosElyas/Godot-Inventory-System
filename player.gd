@@ -25,15 +25,20 @@ func _unhandled_input(event):
 	if is_on_floor() and event.is_action_pressed("pulo"):
 		target_velocity.y = pulo
 	if event.is_action_pressed("correr"):
+	# o BUG acontece qnd se apertar mesmo sem correr ele gasta o NEED
 		velocidade *= 1.5
+		#if target_velocity.x != 0.0 || target_velocity.z != 0.0:
 		need.queda *= 10
 	elif event.is_action_released("correr"):
 		velocidade /= 1.5
 		need.queda /= 10
 	#if event.is_action_just_pressed("inventory"):
 	#event.is_action_just_pressed NÃO FUNCIONA
-	if event.is_action_pressed("inventory"):
+	if Input.is_action_just_pressed("inventory"):
 		toggle_inventory.emit()
+	if Input.is_action_just_pressed("interagir"):
+		abrirPorta()
+		interact()
 
 func _process(_delta):
 	$"../Seta".look_at($"Cabeça".get_global_transform().origin)#, transform.basis.y)
@@ -47,7 +52,7 @@ func _physics_process(delta):
 			print_debug(alvo.name)
 			$"../ProgressBar".value = need.incrementar(10.0)
 
-	abrirPorta()
+	#abrirPorta()
 	
 	var direction = Vector3.ZERO
 	
@@ -59,7 +64,7 @@ func _physics_process(delta):
 		direction.z += 1
 	if Input.is_action_pressed("frente"):
 		direction.z -= 1
-	
+
 	if direction != Vector3.ZERO:
 		direction = direction.normalized().rotated(Vector3.UP, rotation.y)
 	if not is_on_floor():
@@ -74,10 +79,13 @@ func _physics_process(delta):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE else Input.MOUSE_MODE_VISIBLE
 
 func abrirPorta():
-	if Input.is_action_just_pressed("interagir"):
-		print(position.distance_to($"../RigidBody3D".position))
-		if raycast.is_colliding():
-			var alvo = raycast.get_collider()
-			
-			if alvo.get_parent().is_in_group("porta"):
-				alvo.get_parent().abrir()
+	print(position.distance_to($"../RigidBody3D".position))
+	if raycast.is_colliding():
+		var alvo = raycast.get_collider()
+		
+		if alvo.get_parent().is_in_group("porta"):
+			alvo.get_parent().abrir()
+
+func interact() -> void:
+	if raycast.is_colliding():
+		print(raycast.get_collider())
