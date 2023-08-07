@@ -5,6 +5,7 @@ extends CharacterBody3D
 @export var pulo = 20
 @export var sensibilidade = 0.002
 const gravidade = 75
+var health: int = 5
 @onready var cabeca = $"Cabeça"
 @onready var raycast = $"Cabeça/RayCast3D"
 var target_velocity = Vector3.ZERO
@@ -12,6 +13,7 @@ var need = Necessidade.new(100.0, 0.1)
 signal toggle_inventory()
 
 func _ready():
+	PlayerManager.player = self # Singleton/Estático
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	need.valor_atual = 0
 
@@ -95,3 +97,6 @@ func interact() -> void:
 func get_drop_position() -> Vector3:
 	var direction = -cabeca.global_transform.basis.z
 	return cabeca.global_position + direction
+
+func heal(heal_value: int) -> void:
+	health += heal_value

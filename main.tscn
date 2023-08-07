@@ -1,7 +1,7 @@
 [gd_scene load_steps=38 format=3 uid="uid://dq2cnca5oumcl"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_84kpr"]
-[ext_resource type="PackedScene" uid="uid://ccq121a4bncjp" path="res://player.tscn" id="1_v07eb"]
+[ext_resource type="PackedScene" uid="uid://ccq121a4bncjp" path="res://player/player.tscn" id="1_v07eb"]
 [ext_resource type="PackedScene" uid="uid://ohaw43wqob60" path="res://inimigo2d.tscn" id="2_u4wqo"]
 [ext_resource type="Resource" uid="uid://j34gvvlcfj1r" path="res://test_inv.tres" id="3_kwcfg"]
 [ext_resource type="Script" path="res://Porta.gd" id="3_ynqar"]

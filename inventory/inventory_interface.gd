@@ -50,7 +50,7 @@ func on_inventory_interact(inventory_data: InventoryData, index: int, button: in
 		[_, MOUSE_BUTTON_LEFT]: # _ underline pode significar qualquer coisa
 			grabbed_slot_data = inventory_data.drop_slot_data(grabbed_slot_data ,index)
 		[null, MOUSE_BUTTON_RIGHT]:
-			pass # butão para usar o item
+			inventory_data.use_slot_data(index)
 		[_, MOUSE_BUTTON_RIGHT]:
 			grabbed_slot_data = inventory_data.drop_single_slot_data(grabbed_slot_data ,index)
 	
