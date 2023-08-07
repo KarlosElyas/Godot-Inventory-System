@@ -296,4 +296,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15671, 1.62785, 3.34316)
 slot_data = SubResource("Resource_ivdmo")
 
 [connection signal="body_entered" from="PlacaPressao" to="Porta" method="_on_placa_pressao_body_entered"]
+[connection signal="drop_slot_data" from="UI/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
+[connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]

@@ -1,6 +1,8 @@
 extends Node
 #cena PRINCIPAL vai fazer a ligação da DATA do player com a UI
 
+const PickUp = preload("res://item/pick_up/pick_up.tscn")
+
 @onready var player = $Player
 @onready var inventory_interface = $UI/InventoryInterface
 #OBSERVE que InventoryInterface NÃO é o inventario do player e sim um
@@ -26,3 +28,10 @@ func toggle_inventory_interface(external_inventory_owner = null) -> void:
 	else: # caso so abra o inventario ele retira a UI do baú
 		inventory_interface.clear_external_inventory()
 		#print("passou aqui")
+
+
+func _on_inventory_interface_drop_slot_data(slot_data):
+	var pick_up = PickUp.instantiate()
+	pick_up.slot_data = slot_data #grabbed_slot_data
+	pick_up.position = player.get_drop_position()
+	add_child(pick_up)

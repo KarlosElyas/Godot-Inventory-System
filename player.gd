@@ -91,3 +91,7 @@ func interact() -> void:
 		var target = raycast.get_collider()
 		if target.is_in_group("external_inventory"):
 			raycast.get_collider().player_interact()
+
+func get_drop_position() -> Vector3:
+	var direction = -cabeca.global_transform.basis.z
+	return cabeca.global_position + direction

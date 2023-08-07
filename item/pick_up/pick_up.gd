@@ -6,6 +6,7 @@ extends RigidBody3D
 func _ready():
 	sprite_3d.texture = slot_data.item_data.texture
 
+#cada uma tem sua propria rotação (CAUSA LAG)
 func _physics_process(delta):
 	sprite_3d.rotate_y(delta)
 

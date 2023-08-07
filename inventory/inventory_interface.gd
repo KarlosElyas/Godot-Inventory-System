@@ -9,7 +9,7 @@ var external_inventory_owner
 @onready var grabbed_slot = $GrabbedSlot
 @onready var external_inventory = $ExternalInventory
 
-func _physics_process(delta): # se o grabbed estiver visivel
+func _physics_process(_delta): # se o grabbed estiver visivel
 	if grabbed_slot.visible:# então ele seguira a posição do mouse
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5.0, 5.0)
 
@@ -64,10 +64,23 @@ func update_grabbed_slot():
 		grabbed_slot.hide()
 
 func _on_gui_input(event):
-	pass
-#	if event is InputEventMouseButton and event.is_pressed() \
-#		and grabbed_slot_data:
-#		match event.button_index:
-#			MOUSE_BUTTON_LEFT:
-#				drop_slot_data.emit(grabbed_slot_data)
-#				print("drop data")
+	if event is InputEventMouseButton and event.is_pressed() \
+		and grabbed_slot_data:
+		match event.button_index:
+			MOUSE_BUTTON_LEFT:
+				drop_slot_data.emit(grabbed_slot_data)
+				grabbed_slot_data = null
+			
+			MOUSE_BUTTON_RIGHT:
+				drop_slot_data.emit(grabbed_slot_data.create_single_slot_data())
+				if grabbed_slot_data.quantity < 1:
+					grabbed_slot_data = null
+		
+		update_grabbed_slot()
+
+
+func _on_visibility_changed(): # se fechar o inventario segurando item
+	if not visible and grabbed_slot_data:
+		drop_slot_data.emit(grabbed_slot_data)
+		grabbed_slot_data = null
+		update_grabbed_slot()
