@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dq2cnca5oumcl"]
+[gd_scene load_steps=38 format=3 uid="uid://dq2cnca5oumcl"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_84kpr"]
 [ext_resource type="PackedScene" uid="uid://ccq121a4bncjp" path="res://player.tscn" id="1_v07eb"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="12_l5bvm"]
 [ext_resource type="Resource" uid="uid://ctyn7f6wbmk6u" path="res://item/items/blue_book.tres" id="13_kmhdl"]
 [ext_resource type="Script" path="res://inventory/slot_data.gd" id="14_sllvx"]
+[ext_resource type="PackedScene" uid="uid://y4gsxh4ebjcf" path="res://item/pick_up/pick_up.tscn" id="15_bfm8e"]
+[ext_resource type="Resource" uid="uid://bgn2s28rd76g4" path="res://item/items/apple.tres" id="16_so6ml"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3pxbj"]
 size = Vector3(20, 0.1, 20)
@@ -117,6 +119,11 @@ quantity = 1
 [sub_resource type="Resource" id="Resource_ixlc6"]
 script = ExtResource("12_l5bvm")
 slot_datas = Array[ExtResource("14_sllvx")]([null, null, SubResource("Resource_l7cnb"), null, null])
+
+[sub_resource type="Resource" id="Resource_ivdmo"]
+script = ExtResource("14_sllvx")
+item_data = ExtResource("16_so6ml")
+quantity = 64
 
 [node name="Main" type="Node"]
 script = ExtResource("1_84kpr")
@@ -284,4 +291,9 @@ offset_bottom = 64.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3611, 4.76837e-07, 3.66031)
 inventory_data = SubResource("Resource_ixlc6")
 
+[node name="PickUp" parent="." instance=ExtResource("15_bfm8e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15671, 1.62785, 3.34316)
+slot_data = SubResource("Resource_ivdmo")
+
 [connection signal="body_entered" from="PlacaPressao" to="Porta" method="_on_placa_pressao_body_entered"]
+[connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
