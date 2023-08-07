@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dq2cnca5oumcl"]
+[gd_scene load_steps=39 format=3 uid="uid://dq2cnca5oumcl"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_84kpr"]
 [ext_resource type="PackedScene" uid="uid://ccq121a4bncjp" path="res://player/player.tscn" id="1_v07eb"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://crl6pbm2r86dj" path="res://inventory/inventory.tscn" id="6_b6ktg"]
 [ext_resource type="Script" path="res://inventory/inventory_interface.gd" id="8_egrvv"]
 [ext_resource type="PackedScene" uid="uid://6ychcj1iywf" path="res://inventory/slot.tscn" id="10_0v4a7"]
+[ext_resource type="PackedScene" uid="uid://bdm2go1ihu2ot" path="res://inventory/hot_bar_inventory.tscn" id="11_kjm2i"]
 [ext_resource type="PackedScene" uid="uid://bd7bm0xagtpk6" path="res://interactable/chest.tscn" id="11_p3myx"]
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="12_l5bvm"]
 [ext_resource type="Resource" uid="uid://ctyn7f6wbmk6u" path="res://item/items/blue_book.tres" id="13_kmhdl"]
@@ -286,6 +287,12 @@ self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
+
+[node name="HotBarInventory" parent="UI" instance=ExtResource("11_kjm2i")]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 430.0
+offset_bottom = 90.0
 
 [node name="Chest" parent="." instance=ExtResource("11_p3myx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3611, 4.76837e-07, 3.66031)

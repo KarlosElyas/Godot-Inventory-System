@@ -3,6 +3,7 @@ extends Node
 
 const PickUp = preload("res://item/pick_up/pick_up.tscn")
 
+@onready var hot_bar_inventory = $UI/HotBarInventory
 @onready var player = $Player
 @onready var inventory_interface = $UI/InventoryInterface
 #OBSERVE que InventoryInterface NÃO é o inventario do player e sim um
@@ -12,6 +13,7 @@ func _ready(): # o invetory_data Lógico do player é passado para a UI
 	#conecta MANUALMENTE o sinal do player com a função toggle abaixo
 	player.toggle_inventory.connect(toggle_inventory_interface)#.bind())
 	inventory_interface.set_player_invetory_data(player.inventory_data)
+	hot_bar_inventory.set_inventory_data(player.inventory_data)
 	
 	#todos os nodes que fazem parte de external_inventory são conectados
 	for node in get_tree().get_nodes_in_group("external_inventory"):
@@ -20,7 +22,13 @@ func _ready(): # o invetory_data Lógico do player é passado para a UI
 func toggle_inventory_interface(external_inventory_owner = null) -> void:
 	inventory_interface.visible = !inventory_interface.visible
 	
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if inventory_interface.visible else Input.MOUSE_MODE_CAPTURED
+	
+	if inventory_interface.visible:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE 
+		hot_bar_inventory.hide() # esconde o hotbar
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		hot_bar_inventory.show()
 	
 	# quando interage com o BAÚ ele emit o sinal
 	if external_inventory_owner != null and inventory_interface.visible: # se estiver aberto então vai fechar

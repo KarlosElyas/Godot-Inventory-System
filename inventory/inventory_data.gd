@@ -55,6 +55,7 @@ func use_slot_data(index: int) -> void:
 		if slot_data.quantity < 1:
 			slot_datas[index] = null
 	
+	#instancia singleton pois nao existe referencia por player
 	PlayerManager.use_slot_data(slot_data)
 	
 	inventory_updated.emit(self)
