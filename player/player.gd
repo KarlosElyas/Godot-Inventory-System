@@ -1,11 +1,14 @@
 extends CharacterBody3D
 #SHIFT Alt O - Abrir rapidamente algo
 @export var inventory_data: InventoryData #array de slots
+@export var equip_inventory_data: InventoryDataEquip
+
 @export var velocidade = 5
 @export var pulo = 20
 @export var sensibilidade = 0.002
 const gravidade = 75
 var health: int = 5
+var defesa = 0
 @onready var cabeca = $"Cabeça"
 @onready var raycast = $"Cabeça/RayCast3D"
 var target_velocity = Vector3.ZERO
@@ -16,6 +19,7 @@ func _ready():
 	PlayerManager.player = self # Singleton/Estático
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	need.valor_atual = 0
+	equip_inventory_data.inventory_updated.connect(atualizar_defesa)
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -87,6 +91,7 @@ func abrirPorta():
 		
 		if alvo.get_parent().is_in_group("porta"):
 			alvo.get_parent().abrir()
+			print("Defesa: %d"%defesa)
 
 func interact() -> void:
 	if raycast.is_colliding():
@@ -100,3 +105,8 @@ func get_drop_position() -> Vector3:
 
 func heal(heal_value: int) -> void:
 	health += heal_value
+
+func atualizar_defesa(_x):
+	if equip_inventory_data.slot_datas[0]:
+		defesa = equip_inventory_data.slot_datas[0].item_data.defence
+	else: defesa = 0

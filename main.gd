@@ -13,6 +13,7 @@ func _ready(): # o invetory_data Lógico do player é passado para a UI
 	#conecta MANUALMENTE o sinal do player com a função toggle abaixo
 	player.toggle_inventory.connect(toggle_inventory_interface)#.bind())
 	inventory_interface.set_player_invetory_data(player.inventory_data)
+	inventory_interface.set_equip_invetory_data(player.equip_inventory_data)
 	hot_bar_inventory.set_inventory_data(player.inventory_data)
 	
 	#todos os nodes que fazem parte de external_inventory são conectados

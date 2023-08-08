@@ -10,7 +10,7 @@ func _unhandled_key_input(event):
 		return
 	# se a tecla apertada estiver no range de key 1 a key 6
 	if range(KEY_1, KEY_7).has(event.keycode): #utilizando keycode
-		hot_bar_use.emit(event.keycode - KEY_1)#KEY_1 vale 49
+		hot_bar_use.emit(event.keycode - KEY_1)#+12) #KEY_1 vale 49
 
 func set_inventory_data(inventory_data: InventoryData) -> void:
 	inventory_data.inventory_updated.connect(populate_hot_bar)
