@@ -14,6 +14,7 @@ func _ready(): # o invetory_data Lógico do player é passado para a UI
 	player.toggle_inventory.connect(toggle_inventory_interface)#.bind())
 	inventory_interface.set_player_invetory_data(player.inventory_data)
 	inventory_interface.set_equip_invetory_data(player.equip_inventory_data)
+	inventory_interface.force_close.connect(toggle_inventory_interface)
 	hot_bar_inventory.set_inventory_data(player.inventory_data)
 	
 	#todos os nodes que fazem parte de external_inventory são conectados
@@ -31,8 +32,8 @@ func toggle_inventory_interface(external_inventory_owner = null) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		hot_bar_inventory.show()
 	
-	# quando interage com o BAÚ ele emit o sinal
-	if external_inventory_owner != null and inventory_interface.visible: # se estiver aberto então vai fechar
+	# quando INTERAGE com o BAÚ ele emit o sinal PASSANDO ELE COMO ARGUMENTO
+	if external_inventory_owner != null and inventory_interface.visible:
 		inventory_interface.set_external_inventory(external_inventory_owner)
 	else: # caso so abra o inventario ele retira a UI do baú
 		inventory_interface.clear_external_inventory()

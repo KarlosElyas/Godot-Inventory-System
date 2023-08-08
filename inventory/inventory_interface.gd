@@ -1,6 +1,7 @@
 extends Control
 # SCRIPT do nó InventoryInterface em main
 signal drop_slot_data(slot_data: SlotData)
+signal force_close
 
 var grabbed_slot_data: SlotData
 var external_inventory_owner
@@ -13,6 +14,11 @@ var external_inventory_owner
 func _physics_process(_delta): # se o grabbed estiver visivel
 	if grabbed_slot.visible:# então ele seguira a posição do mouse
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5.0, 5.0)
+	
+	#Fecha o inventario se estiver DISTANTE
+	if external_inventory_owner and \
+	external_inventory_owner.global_position.distance_to(PlayerManager.get_global_position()) > 4.0:
+		force_close.emit()
 
 #função chamada pelo SCRIPT de Main
 func set_player_invetory_data(inventory_data: InventoryData) -> void:
@@ -34,6 +40,7 @@ func set_external_inventory(_external_inventory_owner) -> void:
 	external_inventory.set_inventory_data(inventory_data)
 	external_inventory.show()
 
+# Desconectando o inventario do baú
 func clear_external_inventory() -> void:
 	if external_inventory_owner:
 		var inventory_data = external_inventory_owner.inventory_data
